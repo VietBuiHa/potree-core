@@ -106,42 +106,42 @@ class BinaryLoader
 
 				if(parseInt(property) === PointAttributeNames.POSITION_CARTESIAN)
 				{
-					geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+					geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 				}
 				else if(parseInt(property) === PointAttributeNames.COLOR_PACKED)
 				{
-					geometry.setAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+					geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
 				}
 				else if(parseInt(property) === PointAttributeNames.INTENSITY)
 				{
-					geometry.setAttribute("intensity", new THREE.BufferAttribute(new Float32Array(buffer), 1));
+					geometry.addAttribute("intensity", new THREE.BufferAttribute(new Float32Array(buffer), 1));
 				}
 				else if(parseInt(property) === PointAttributeNames.CLASSIFICATION)
 				{
-					geometry.setAttribute("classification", new THREE.BufferAttribute(new Uint8Array(buffer), 1));
+					geometry.addAttribute("classification", new THREE.BufferAttribute(new Uint8Array(buffer), 1));
 				}
 				else if(parseInt(property) === PointAttributeNames.NORMAL_SPHEREMAPPED)
 				{
-					geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+					geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 				}
 				else if(parseInt(property) === PointAttributeNames.NORMAL_OCT16)
 				{
-					geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+					geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 				}
 				else if(parseInt(property) === PointAttributeNames.NORMAL)
 				{
-					geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+					geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 				}
 				else if(parseInt(property) === PointAttributeNames.INDICES)
 				{
 					var bufferAttribute = new THREE.BufferAttribute(new Uint8Array(buffer), 4);
 					bufferAttribute.normalized = true;
-					geometry.setAttribute("indices", bufferAttribute);
+					geometry.addAttribute("indices", bufferAttribute);
 				}
 				else if(parseInt(property) === PointAttributeNames.SPACING)
 				{
 					var bufferAttribute = new THREE.BufferAttribute(new Float32Array(buffer), 1);
-					geometry.setAttribute("spacing", bufferAttribute);
+					geometry.addAttribute("spacing", bufferAttribute);
 				}
 			}
 

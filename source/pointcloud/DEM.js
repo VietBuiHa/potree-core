@@ -30,7 +30,7 @@ class DEM
 		while(stack.length > 0)
 		{
 			var node = stack.pop();
-			var nodeBoxSize = node.box.getSize(new THREE.Vector3());
+			var nodeBoxSize = node.box.size(new THREE.Vector3());
 
 			//check which children intersect by transforming min/max to quadrants
 			var min = {
@@ -178,7 +178,7 @@ class DEM
 
 		//update node
 		var projectedBox = node.getBoundingBox().clone().applyMatrix4(this.matrix);
-		var projectedBoxSize = projectedBox.getSize(new THREE.Vector3());
+		var projectedBoxSize = projectedBox.size(new THREE.Vector3());
 
 		var targetNodes = this.expandAndFindByBox(projectedBox, node.getLevel());
 		node.demVersion = this.version;
@@ -203,7 +203,7 @@ class DEM
 
 			for(var demNode of targetNodes)
 			{
-				var boxSize = demNode.box.getSize(new THREE.Vector3());
+				var boxSize = demNode.box.size(new THREE.Vector3());
 
 				for(var i = 0; i < self.tileSize; i++)
 				{

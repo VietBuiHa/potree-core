@@ -298,7 +298,7 @@ class PointCloudOctree extends PointCloudTree
 		material.spacing = this.pcoGeometry.spacing * Math.max(this.scale.x, this.scale.y, this.scale.z);
 		material.near = camera.near;
 		material.far = camera.far;
-		material.uniforms.octreeSize.value = this.pcoGeometry.boundingBox.getSize(new THREE.Vector3()).x;
+		material.uniforms.octreeSize.value = this.pcoGeometry.boundingBox.size(new THREE.Vector3()).x;
 	}
 
 	computeVisibilityTextureData(nodes, camera)
@@ -566,7 +566,7 @@ class PointCloudOctree extends PointCloudTree
 		var transform = this.matrixWorld;
 		var tBox = HelperUtils.computeTransformedBoundingBox(box, transform);
 
-		this.position.set(0, 0, 0).sub(tBox.getCenter(new THREE.Vector3()));
+		this.position.set(0, 0, 0).sub(tBox.center(new THREE.Vector3()));
 	};
 
 	moveToGroundPlane()
@@ -1021,7 +1021,7 @@ class PointCloudOctree extends PointCloudTree
 		}
 
 
-		var fittedPosition = shrinkedLocalBounds.getCenter(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
+		var fittedPosition = shrinkedLocalBounds.center(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
 
 		var fitted = new THREE.Object3D();
 		fitted.position.copy(fittedPosition);
@@ -1077,7 +1077,7 @@ class PointCloudOctree extends PointCloudTree
 			}
 		}
 
-		var fittedPosition = shrinkedLocalBounds.getCenter(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
+		var fittedPosition = shrinkedLocalBounds.center(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
 
 		var fitted = new THREE.Object3D();
 		fitted.position.copy(fittedPosition);

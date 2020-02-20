@@ -66,13 +66,13 @@ class BasicGroup extends THREE.Mesh
 	{
 		var box = this.getBoundingBox();
 		
-		var size = box.getSize(new THREE.Vector3());
-		var center = box.getCenter(new THREE.Vector3());
+		var size = box.size(new THREE.Vector3());
+		var center = box.center(new THREE.Vector3());
 
 		var matrix = new THREE.Matrix4();
 		matrix.makeTranslation(center.x, -center.z, center.y);
 
-		var geometry = new THREE.BoxBufferGeometry(size.x, size.z, size.y);
+		var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(size.x, size.z, size.y));
 		geometry.applyMatrix(matrix);
 
 		this.geometry = geometry;

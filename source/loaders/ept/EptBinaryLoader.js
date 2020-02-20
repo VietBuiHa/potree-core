@@ -51,40 +51,40 @@ class EptBinaryLoader
 			var numPoints = e.data.numPoints;
 
 			var position = new Float32Array(e.data.position);
-			g.setAttribute("position", new THREE.BufferAttribute(position, 3));
+			g.addAttribute("position", new THREE.BufferAttribute(position, 3));
 
 			var indices = new Uint8Array(e.data.indices);
-			g.setAttribute("indices", new THREE.BufferAttribute(indices, 4));
+			g.addAttribute("indices", new THREE.BufferAttribute(indices, 4));
 
 			if(e.data.color)
 			{
 				var color = new Uint8Array(e.data.color);
-				g.setAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				g.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
 			}
 			if(e.data.intensity)
 			{
 				var intensity = new Float32Array(e.data.intensity);
-				g.setAttribute("intensity", new THREE.BufferAttribute(intensity, 1));
+				g.addAttribute("intensity", new THREE.BufferAttribute(intensity, 1));
 			}
 			if(e.data.classification)
 			{
 				var classification = new Uint8Array(e.data.classification);
-				g.setAttribute("classification", new THREE.BufferAttribute(classification, 1));
+				g.addAttribute("classification", new THREE.BufferAttribute(classification, 1));
 			}
 			if(e.data.returnNumber)
 			{
 				var returnNumber = new Uint8Array(e.data.returnNumber);
-				g.setAttribute("returnNumber", new THREE.BufferAttribute(returnNumber, 1));
+				g.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumber, 1));
 			}
 			if(e.data.numberOfReturns)
 			{
 				var numberOfReturns = new Uint8Array(e.data.numberOfReturns);
-				g.setAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
+				g.addAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
 			}
 			if(e.data.pointSourceId)
 			{
 				var pointSourceId = new Uint16Array(e.data.pointSourceId);
-				g.setAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceId, 1));
+				g.addAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceId, 1));
 			}
 
 			g.attributes.indices.normalized = true;

@@ -5,13 +5,13 @@
 		<title>Potree-Core Example</title>
 	</head>
 	<body style="background-color: #000000">
-		<script src="lib/threejs/three.min.js"></script>
+		<script src="lib/threejs/three.js"></script>
 		<script src="lib/threejs/OrbitControls.js"></script>
-		<script src="build/potree.min.js"></script>
+		<script src="lib/threejs/CanvasTexture.js"></script>
+		<script src="build/potree.js"></script>
 		<script>
 			document.body.onload = function()
 			{
-				//three.js
 				var scene = new THREE.Scene();
 				var camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
 
@@ -36,7 +36,7 @@
 					powerPreference: "high-performance"
 				});
 
-				var geometry = new THREE.BoxBufferGeometry(25, 1, 25);
+				var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(25, 1, 25));
 				var material = new THREE.MeshBasicMaterial({color: 0x44AA44});
 				var cube = new THREE.Mesh(geometry, material);
 				cube.position.y = -2;
@@ -48,7 +48,7 @@
 				camera.position.z = 10;
 
 				var raycaster = new THREE.Raycaster();
-				raycaster.params.Points.threshold = 1e-2;
+				//raycaster.params.Points.threshold = 1e-2;
 				var normalized = new THREE.Vector2();
 
 				canvas.onmousemove = function(event)
@@ -74,11 +74,11 @@
 
 				Potree.Global.workerPath = "./source";
 
-				loadPointCloud("data/lion_takanawa_ept_laz/ept.json", new THREE.Vector3(-4, -4, 3.0));
-				loadPointCloud("data/lion_takanawa_ept_bin/ept.json", new THREE.Vector3(-11, -4, 3.0));
+				//loadPointCloud("data/lion_takanawa_ept_laz/ept.json", new THREE.Vector3(-4, -4, 3.0));
+				//loadPointCloud("data/lion_takanawa_ept_bin/ept.json", new THREE.Vector3(-11, -4, 3.0));
 				loadPointCloud("data/lion_takanawa/cloud.js", new THREE.Vector3(-2, -3, 0.0));
-				loadPointCloud("data/lion_takanawa_las/cloud.js", new THREE.Vector3(3, -3, 0.0));
-				loadPointCloud("data/lion_takanawa_laz/cloud.js", new THREE.Vector3(8, -3, 0.0));
+				//loadPointCloud("data/lion_takanawa_las/cloud.js", new THREE.Vector3(3, -3, 0.0));
+				//loadPointCloud("data/lion_takanawa_laz/cloud.js", new THREE.Vector3(8, -3, 0.0));
 				//loadPointCloud("http://arena4d.uksouth.cloudapp.azure.com:8080/4e5059c4-f701-4a8f-8830-59e78a2c0816/BLK360 Sample.vpc");
 				//"http://5.9.65.151/mschuetz/potree/resources/pointclouds/faro/skatepark/cloud.js"
 				//"http://5.9.65.151/mschuetz/potree/resources/pointclouds/weiss/subseamanifold2/cloud.js"

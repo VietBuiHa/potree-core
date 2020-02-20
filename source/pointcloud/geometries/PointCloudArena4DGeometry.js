@@ -150,13 +150,13 @@ class PointCloudArena4DGeometryNode
 				}
 
 				var geometry = new THREE.BufferGeometry();
-				geometry.setAttribute("position", new THREE.BufferAttribute(position, 3));
-				geometry.setAttribute("color", new THREE.BufferAttribute(color, 4, true));
-				geometry.setAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
-				geometry.setAttribute("classification", new THREE.BufferAttribute(classifications, 1));
+				geometry.addAttribute("position", new THREE.BufferAttribute(position, 3));
+				geometry.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				geometry.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
+				geometry.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 				{
 					var bufferAttribute = new THREE.BufferAttribute(new Uint8Array(indices), 4, true);
-					geometry.setAttribute("indices", bufferAttribute);
+					geometry.addAttribute("indices", bufferAttribute);
 				}
 
 				self.geometry = geometry;
@@ -263,8 +263,8 @@ class PointCloudArena4DGeometry extends THREE.EventDispatcher
 					geometry.offset = offset;
 
 					var center = new THREE.Vector3();
-					geometry.boundingBox.getCenter(center);
-					var radius = geometry.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+					geometry.boundingBox.center(center);
+					var radius = geometry.boundingBox.size(new THREE.Vector3()).length() / 2;
 					geometry.boundingSphere = new THREE.Sphere(center, radius);
 
 					geometry.loadHierarchy();
@@ -353,7 +353,7 @@ class PointCloudArena4DGeometry extends THREE.EventDispatcher
 				{
 					var parent = stack[stack.length - 1];
 					node.boundingBox = parent.boundingBox.clone();
-					var parentBBSize = parent.boundingBox.getSize(new THREE.Vector3());
+					var parentBBSize = parent.boundingBox.size(new THREE.Vector3());
 
 					if(parent.hasLeft && !parent.left)
 					{
@@ -375,8 +375,8 @@ class PointCloudArena4DGeometry extends THREE.EventDispatcher
 
 						
 						var center = new THREE.Vector3();
-						node.boundingBox.getCenter(center);
-						var radius = node.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+						node.boundingBox.center(center);
+						var radius = node.boundingBox.size(new THREE.Vector3()).length() / 2;
 						node.boundingSphere = new THREE.Sphere(center, radius);
 					}
 					else
@@ -398,8 +398,8 @@ class PointCloudArena4DGeometry extends THREE.EventDispatcher
 						}
 
 						var center = new THREE.Vector3();
-						node.boundingBox.getCenter(center);
-						var radius = node.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+						node.boundingBox.center(center);
+						var radius = node.boundingBox.size(new THREE.Vector3()).length() / 2;
 						node.boundingSphere = new THREE.Sphere(center, radius);
 					}
 				}
@@ -409,12 +409,12 @@ class PointCloudArena4DGeometry extends THREE.EventDispatcher
 					root.boundingBox = this.boundingBox.clone();
 
 					var center = new THREE.Vector3();
-					root.boundingBox.getCenter(center);
-					var radius = root.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+					root.boundingBox.center(center);
+					var radius = root.boundingBox.size(new THREE.Vector3()).length() / 2;
 					root.boundingSphere = new THREE.Sphere(center, radius);
 				}
 
-				var bbSize = node.boundingBox.getSize(new THREE.Vector3());
+				var bbSize = node.boundingBox.size(new THREE.Vector3());
 				node.spacing = ((bbSize.x + bbSize.y + bbSize.z) / 3) / 75;
 				node.estimatedSpacing = node.spacing;
 

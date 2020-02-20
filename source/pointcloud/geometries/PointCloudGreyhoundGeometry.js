@@ -50,8 +50,8 @@ function PointCloudGreyhoundGeometryNode(name, pcoGeometry, boundingBox, scale, 
 	var center = new THREE.Vector3();
 
 	var bounds = this.boundingBox.clone();
-	bounds.min.sub(this.pcoGeometry.boundingBox.getCenter(center));
-	bounds.max.sub(this.pcoGeometry.boundingBox.getCenter(center));
+	bounds.min.sub(this.pcoGeometry.boundingBox.center(center));
+	bounds.max.sub(this.pcoGeometry.boundingBox.center(center));
 
 	if(this.scale)
 	{
@@ -66,7 +66,7 @@ function PointCloudGreyhoundGeometryNode(name, pcoGeometry, boundingBox, scale, 
 
 	//This represents the offset between the coordinate system described above
 	//and our pcoGeometry bounds.
-	this.greyhoundOffset = this.pcoGeometry.offset.clone().add(this.pcoGeometry.boundingBox.getSize(new THREE.Vector3()).multiplyScalar(0.5));
+	this.greyhoundOffset = this.pcoGeometry.offset.clone().add(this.pcoGeometry.boundingBox.size(new THREE.Vector3()).multiplyScalar(0.5));
 };
 
 PointCloudGreyhoundGeometryNode.IDCount = 0;

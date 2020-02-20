@@ -277,7 +277,7 @@ class PointCloudArena4D extends PointCloudTree
 		}
 
 		//material.uniforms.octreeSize.value = this.boundingBox.size().x;
-		var bbSize = this.boundingBox.getSize(new THREE.Vector3());
+		var bbSize = this.boundingBox.size(new THREE.Vector3());
 		material.bbSize = [bbSize.x, bbSize.y, bbSize.z];
 	}
 
@@ -378,7 +378,7 @@ class PointCloudArena4D extends PointCloudTree
 		var pickWindowSize = getVal(params.pickWindowSize, 17);
 		var pickOutsideClipRegion = getVal(params.pickOutsideClipRegion, false);
 
-		var size = renderer.getSize(new THREE.Vector3());
+		var size = renderer.size(new THREE.Vector3());
 
 		var width = Math.ceil(getVal(params.width, size.width));
 		var height = Math.ceil(getVal(params.height, size.height));

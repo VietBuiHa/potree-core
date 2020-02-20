@@ -81,7 +81,7 @@ class DEMNode
 
 	uv(position)
 	{
-		var boxSize = this.box.getSize(new THREE.Vector3());
+		var boxSize = this.box.size(new THREE.Vector3());
 
 		var u = (position.x - this.box.min.x) / boxSize.x;
 		var v = (position.y - this.box.min.y) / boxSize.y;

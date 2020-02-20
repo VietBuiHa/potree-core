@@ -570,7 +570,7 @@
 
 		uv(position)
 		{
-			var boxSize = this.box.getSize(new THREE.Vector3());
+			var boxSize = this.box.size(new THREE.Vector3());
 
 			var u = (position.x - this.box.min.x) / boxSize.x;
 			var v = (position.y - this.box.min.y) / boxSize.y;
@@ -679,7 +679,7 @@
 			while(stack.length > 0)
 			{
 				var node = stack.pop();
-				var nodeBoxSize = node.box.getSize(new THREE.Vector3());
+				var nodeBoxSize = node.box.size(new THREE.Vector3());
 
 				//check which children intersect by transforming min/max to quadrants
 				var min = {
@@ -827,7 +827,7 @@
 
 			//update node
 			var projectedBox = node.getBoundingBox().clone().applyMatrix4(this.matrix);
-			var projectedBoxSize = projectedBox.getSize(new THREE.Vector3());
+			var projectedBoxSize = projectedBox.size(new THREE.Vector3());
 
 			var targetNodes = this.expandAndFindByBox(projectedBox, node.getLevel());
 			node.demVersion = this.version;
@@ -852,7 +852,7 @@
 
 				for(var demNode of targetNodes)
 				{
-					var boxSize = demNode.box.getSize(new THREE.Vector3());
+					var boxSize = demNode.box.size(new THREE.Vector3());
 
 					for(var i = 0; i < self.tileSize; i++)
 					{
@@ -973,8 +973,8 @@
 		var center = new THREE.Vector3();
 
 		var bounds = this.boundingBox.clone();
-		bounds.min.sub(this.pcoGeometry.boundingBox.getCenter(center));
-		bounds.max.sub(this.pcoGeometry.boundingBox.getCenter(center));
+		bounds.min.sub(this.pcoGeometry.boundingBox.center(center));
+		bounds.max.sub(this.pcoGeometry.boundingBox.center(center));
 
 		if(this.scale)
 		{
@@ -989,7 +989,7 @@
 
 		//This represents the offset between the coordinate system described above
 		//and our pcoGeometry bounds.
-		this.greyhoundOffset = this.pcoGeometry.offset.clone().add(this.pcoGeometry.boundingBox.getSize(new THREE.Vector3()).multiplyScalar(0.5));
+		this.greyhoundOffset = this.pcoGeometry.offset.clone().add(this.pcoGeometry.boundingBox.size(new THREE.Vector3()).multiplyScalar(0.5));
 	}
 	PointCloudGreyhoundGeometryNode.IDCount = 0;
 
@@ -1389,7 +1389,7 @@
 
 			var bb = node.boundingBox;
 			var center = new THREE.Vector3();
-			var nodeOffset = node.pcoGeometry.boundingBox.getCenter(center).sub(node.boundingBox.min);
+			var nodeOffset = node.pcoGeometry.boundingBox.center(center).sub(node.boundingBox.min);
 
 			var message =
 			{
@@ -1423,42 +1423,42 @@
 
 					if(parseInt(property) === PointAttributeNames.POSITION_CARTESIAN)
 					{
-						geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.COLOR_PACKED)
 					{
-						geometry.setAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+						geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
 					}
 					else if(parseInt(property) === PointAttributeNames.INTENSITY)
 					{
-						geometry.setAttribute("intensity", new THREE.BufferAttribute(new Float32Array(buffer), 1));
+						geometry.addAttribute("intensity", new THREE.BufferAttribute(new Float32Array(buffer), 1));
 					}
 					else if(parseInt(property) === PointAttributeNames.CLASSIFICATION)
 					{
-						geometry.setAttribute("classification", new THREE.BufferAttribute(new Uint8Array(buffer), 1));
+						geometry.addAttribute("classification", new THREE.BufferAttribute(new Uint8Array(buffer), 1));
 					}
 					else if(parseInt(property) === PointAttributeNames.NORMAL_SPHEREMAPPED)
 					{
-						geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.NORMAL_OCT16)
 					{
-						geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.NORMAL)
 					{
-						geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.INDICES)
 					{
 						var bufferAttribute = new THREE.BufferAttribute(new Uint8Array(buffer), 4);
 						bufferAttribute.normalized = true;
-						geometry.setAttribute("indices", bufferAttribute);
+						geometry.addAttribute("indices", bufferAttribute);
 					}
 					else if(parseInt(property) === PointAttributeNames.SPACING)
 					{
 						var bufferAttribute = new THREE.BufferAttribute(new Float32Array(buffer), 1);
-						geometry.setAttribute("spacing", bufferAttribute);
+						geometry.addAttribute("spacing", bufferAttribute);
 					}
 				}
 
@@ -2041,42 +2041,42 @@
 
 					if(parseInt(property) === PointAttributeNames.POSITION_CARTESIAN)
 					{
-						geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.COLOR_PACKED)
 					{
-						geometry.setAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+						geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
 					}
 					else if(parseInt(property) === PointAttributeNames.INTENSITY)
 					{
-						geometry.setAttribute("intensity", new THREE.BufferAttribute(new Float32Array(buffer), 1));
+						geometry.addAttribute("intensity", new THREE.BufferAttribute(new Float32Array(buffer), 1));
 					}
 					else if(parseInt(property) === PointAttributeNames.CLASSIFICATION)
 					{
-						geometry.setAttribute("classification", new THREE.BufferAttribute(new Uint8Array(buffer), 1));
+						geometry.addAttribute("classification", new THREE.BufferAttribute(new Uint8Array(buffer), 1));
 					}
 					else if(parseInt(property) === PointAttributeNames.NORMAL_SPHEREMAPPED)
 					{
-						geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.NORMAL_OCT16)
 					{
-						geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.NORMAL)
 					{
-						geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
+						geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(buffer), 3));
 					}
 					else if(parseInt(property) === PointAttributeNames.INDICES)
 					{
 						var bufferAttribute = new THREE.BufferAttribute(new Uint8Array(buffer), 4);
 						bufferAttribute.normalized = true;
-						geometry.setAttribute("indices", bufferAttribute);
+						geometry.addAttribute("indices", bufferAttribute);
 					}
 					else if(parseInt(property) === PointAttributeNames.SPACING)
 					{
 						var bufferAttribute = new THREE.BufferAttribute(new Float32Array(buffer), 1);
-						geometry.setAttribute("spacing", bufferAttribute);
+						geometry.addAttribute("spacing", bufferAttribute);
 					}
 				}
 
@@ -2647,15 +2647,15 @@
 				var pointSourceIDs = new Uint16Array(e.data.pointSourceID);
 				var indices = new Uint8Array(e.data.indices);
 
-				geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-				geometry.setAttribute("color", new THREE.BufferAttribute(colors, 4, true));
-				geometry.setAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
-				geometry.setAttribute("classification", new THREE.BufferAttribute(classifications, 1));
-				geometry.setAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));
-				geometry.setAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
-				geometry.setAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceIDs, 1));
-				//geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(numPoints * 3), 3));
-				geometry.setAttribute("indices", new THREE.BufferAttribute(indices, 4));
+				geometry.addAttribute("position", new THREE.BufferAttribute(positions, 3));
+				geometry.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+				geometry.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
+				geometry.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
+				geometry.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));
+				geometry.addAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
+				geometry.addAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceIDs, 1));
+				//geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(numPoints * 3), 3));
+				geometry.addAttribute("indices", new THREE.BufferAttribute(indices, 4));
 				geometry.attributes.indices.normalized = true;
 
 				var tightBoundingBox = new THREE.Box3
@@ -3198,40 +3198,40 @@
 				var numPoints = e.data.numPoints;
 
 				var position = new Float32Array(e.data.position);
-				g.setAttribute("position", new THREE.BufferAttribute(position, 3));
+				g.addAttribute("position", new THREE.BufferAttribute(position, 3));
 
 				var indices = new Uint8Array(e.data.indices);
-				g.setAttribute("indices", new THREE.BufferAttribute(indices, 4));
+				g.addAttribute("indices", new THREE.BufferAttribute(indices, 4));
 
 				if(e.data.color)
 				{
 					var color = new Uint8Array(e.data.color);
-					g.setAttribute("color", new THREE.BufferAttribute(color, 4, true));
+					g.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
 				}
 				if(e.data.intensity)
 				{
 					var intensity = new Float32Array(e.data.intensity);
-					g.setAttribute("intensity", new THREE.BufferAttribute(intensity, 1));
+					g.addAttribute("intensity", new THREE.BufferAttribute(intensity, 1));
 				}
 				if(e.data.classification)
 				{
 					var classification = new Uint8Array(e.data.classification);
-					g.setAttribute("classification", new THREE.BufferAttribute(classification, 1));
+					g.addAttribute("classification", new THREE.BufferAttribute(classification, 1));
 				}
 				if(e.data.returnNumber)
 				{
 					var returnNumber = new Uint8Array(e.data.returnNumber);
-					g.setAttribute("returnNumber", new THREE.BufferAttribute(returnNumber, 1));
+					g.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumber, 1));
 				}
 				if(e.data.numberOfReturns)
 				{
 					var numberOfReturns = new Uint8Array(e.data.numberOfReturns);
-					g.setAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
+					g.addAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
 				}
 				if(e.data.pointSourceId)
 				{
 					var pointSourceId = new Uint16Array(e.data.pointSourceId);
-					g.setAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceId, 1));
+					g.addAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceId, 1));
 				}
 
 				g.attributes.indices.normalized = true;
@@ -3400,14 +3400,14 @@
 				var pointSourceIDs = new Uint16Array(e.data.pointSourceID);
 				var indices = new Uint8Array(e.data.indices);
 
-				g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-				g.setAttribute("color", new THREE.BufferAttribute(colors, 4, true));
-				g.setAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
-				g.setAttribute("classification", new THREE.BufferAttribute(classifications, 1));
-				g.setAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));
-				g.setAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
-				g.setAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceIDs, 1));
-				g.setAttribute("indices", new THREE.BufferAttribute(indices, 4));
+				g.addAttribute("position", new THREE.BufferAttribute(positions, 3));
+				g.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+				g.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
+				g.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
+				g.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));
+				g.addAttribute("numberOfReturns", new THREE.BufferAttribute(numberOfReturns, 1));
+				g.addAttribute("pointSourceID", new THREE.BufferAttribute(pointSourceIDs, 1));
+				g.addAttribute("indices", new THREE.BufferAttribute(indices, 4));
 				g.attributes.indices.normalized = true;
 
 				var tightBoundingBox = new THREE.Box3(
@@ -6270,7 +6270,7 @@ void main()
 			material.spacing = this.pcoGeometry.spacing * Math.max(this.scale.x, this.scale.y, this.scale.z);
 			material.near = camera.near;
 			material.far = camera.far;
-			material.uniforms.octreeSize.value = this.pcoGeometry.boundingBox.getSize(new THREE.Vector3()).x;
+			material.uniforms.octreeSize.value = this.pcoGeometry.boundingBox.size(new THREE.Vector3()).x;
 		}
 
 		computeVisibilityTextureData(nodes, camera)
@@ -6537,7 +6537,7 @@ void main()
 			var transform = this.matrixWorld;
 			var tBox = HelperUtils.computeTransformedBoundingBox(box, transform);
 
-			this.position.set(0, 0, 0).sub(tBox.getCenter(new THREE.Vector3()));
+			this.position.set(0, 0, 0).sub(tBox.center(new THREE.Vector3()));
 		};
 
 		moveToGroundPlane()
@@ -6982,7 +6982,7 @@ void main()
 			}
 
 
-			var fittedPosition = shrinkedLocalBounds.getCenter(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
+			var fittedPosition = shrinkedLocalBounds.center(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
 
 			var fitted = new THREE.Object3D();
 			fitted.position.copy(fittedPosition);
@@ -7038,7 +7038,7 @@ void main()
 				}
 			}
 
-			var fittedPosition = shrinkedLocalBounds.getCenter(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
+			var fittedPosition = shrinkedLocalBounds.center(new THREE.Vector3()).applyMatrix4(boxNode.matrixWorld);
 
 			var fitted = new THREE.Object3D();
 			fitted.position.copy(fittedPosition);
@@ -7344,7 +7344,7 @@ void main()
 			}
 
 			//material.uniforms.octreeSize.value = this.boundingBox.size().x;
-			var bbSize = this.boundingBox.getSize(new THREE.Vector3());
+			var bbSize = this.boundingBox.size(new THREE.Vector3());
 			material.bbSize = [bbSize.x, bbSize.y, bbSize.z];
 		}
 
@@ -7445,7 +7445,7 @@ void main()
 			var pickWindowSize = getVal(params.pickWindowSize, 17);
 			var pickOutsideClipRegion = getVal(params.pickOutsideClipRegion, false);
 
-			var size = renderer.getSize(new THREE.Vector3());
+			var size = renderer.size(new THREE.Vector3());
 
 			var width = Math.ceil(getVal(params.width, size.width));
 			var height = Math.ceil(getVal(params.height, size.height));
@@ -7894,13 +7894,13 @@ void main()
 					}
 
 					var geometry = new THREE.BufferGeometry();
-					geometry.setAttribute("position", new THREE.BufferAttribute(position, 3));
-					geometry.setAttribute("color", new THREE.BufferAttribute(color, 4, true));
-					geometry.setAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
-					geometry.setAttribute("classification", new THREE.BufferAttribute(classifications, 1));
+					geometry.addAttribute("position", new THREE.BufferAttribute(position, 3));
+					geometry.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+					geometry.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
+					geometry.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 					{
 						var bufferAttribute = new THREE.BufferAttribute(new Uint8Array(indices), 4, true);
-						geometry.setAttribute("indices", bufferAttribute);
+						geometry.addAttribute("indices", bufferAttribute);
 					}
 
 					self.geometry = geometry;
@@ -8006,8 +8006,8 @@ void main()
 						geometry.offset = offset;
 
 						var center = new THREE.Vector3();
-						geometry.boundingBox.getCenter(center);
-						var radius = geometry.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+						geometry.boundingBox.center(center);
+						var radius = geometry.boundingBox.size(new THREE.Vector3()).length() / 2;
 						geometry.boundingSphere = new THREE.Sphere(center, radius);
 
 						geometry.loadHierarchy();
@@ -8096,7 +8096,7 @@ void main()
 					{
 						var parent = stack[stack.length - 1];
 						node.boundingBox = parent.boundingBox.clone();
-						var parentBBSize = parent.boundingBox.getSize(new THREE.Vector3());
+						var parentBBSize = parent.boundingBox.size(new THREE.Vector3());
 
 						if(parent.hasLeft && !parent.left)
 						{
@@ -8118,8 +8118,8 @@ void main()
 
 							
 							var center = new THREE.Vector3();
-							node.boundingBox.getCenter(center);
-							var radius = node.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+							node.boundingBox.center(center);
+							var radius = node.boundingBox.size(new THREE.Vector3()).length() / 2;
 							node.boundingSphere = new THREE.Sphere(center, radius);
 						}
 						else
@@ -8141,8 +8141,8 @@ void main()
 							}
 
 							var center = new THREE.Vector3();
-							node.boundingBox.getCenter(center);
-							var radius = node.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+							node.boundingBox.center(center);
+							var radius = node.boundingBox.size(new THREE.Vector3()).length() / 2;
 							node.boundingSphere = new THREE.Sphere(center, radius);
 						}
 					}
@@ -8152,12 +8152,12 @@ void main()
 						root.boundingBox = this.boundingBox.clone();
 
 						var center = new THREE.Vector3();
-						root.boundingBox.getCenter(center);
-						var radius = root.boundingBox.getSize(new THREE.Vector3()).length() / 2;
+						root.boundingBox.center(center);
+						var radius = root.boundingBox.size(new THREE.Vector3()).length() / 2;
 						root.boundingSphere = new THREE.Sphere(center, radius);
 					}
 
-					var bbSize = node.boundingBox.getSize(new THREE.Vector3());
+					var bbSize = node.boundingBox.size(new THREE.Vector3());
 					node.spacing = ((bbSize.x + bbSize.y + bbSize.z) / 3) / 75;
 					node.estimatedSpacing = node.spacing;
 
@@ -9466,13 +9466,13 @@ void main()
 		{
 			var box = this.getBoundingBox();
 			
-			var size = box.getSize(new THREE.Vector3());
-			var center = box.getCenter(new THREE.Vector3());
+			var size = box.size(new THREE.Vector3());
+			var center = box.center(new THREE.Vector3());
 
 			var matrix = new THREE.Matrix4();
 			matrix.makeTranslation(center.x, -center.z, center.y);
 
-			var geometry = new THREE.BoxBufferGeometry(size.x, size.z, size.y);
+			var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(size.x, size.z, size.y));
 			geometry.applyMatrix(matrix);
 
 			this.geometry = geometry;
