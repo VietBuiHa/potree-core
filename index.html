@@ -12,6 +12,7 @@
 		<script>
 			document.body.onload = function()
 			{
+				let pointcloud = null;
 				var scene = new THREE.Scene();
 				var camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
 
@@ -93,7 +94,7 @@
 						points.material.wireframe = true;
 						scene.add(points);
 	
-						var pointcloud = e.pointcloud;
+						pointcloud = e.pointcloud;
 
 						if(position !== undefined)
 						{
@@ -115,6 +116,9 @@
 				{
 					cube.rotation.y += 0.01;
 
+					if (pointcloud) {
+						Potree.updatePointClouds([pointcloud], camera, renderer);
+					}
 					controls.update();
 					renderer.render(scene, camera);
 

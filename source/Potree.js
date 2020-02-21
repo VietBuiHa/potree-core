@@ -162,6 +162,15 @@ function loadPointCloud(path, name, callback)
 	}
 }
 
+function transformsEqual(a, b) {
+	const arr1 = a.elements, arr2 = b.elements;
+	for (let i = 0; i < 16; i++) {
+		if (arr1[i] !== arr2[i])
+			return false;
+	}
+	return true;
+}
+
 function updateVisibility(pointclouds, camera, renderer)
 {
 	var numVisibleNodes = 0;
@@ -212,7 +221,7 @@ function updateVisibility(pointclouds, camera, renderer)
 		else
 		{
 			var version = pointcloudTransformVersion.get(pointcloud);
-			if(!version.transform.equals(pointcloud.matrixWorld))
+			if(!transformsEqual(version.transform, pointcloud.matrixWorld))
 			{
 				version.number++;
 				version.transform.copy(pointcloud.matrixWorld);

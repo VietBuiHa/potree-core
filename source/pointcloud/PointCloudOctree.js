@@ -187,7 +187,7 @@ class PointCloudOctree extends PointCloudTree
 	{
 		var node = new PointCloudOctreeNode();
 
-		var sceneNode = new THREE.Points(geometryNode.geometry, this.material);
+		var sceneNode = new THREE.PointCloud(geometryNode.geometry, this.material);
 		sceneNode.name = geometryNode.name;
 		sceneNode.position.copy(geometryNode.boundingBox.min);
 		sceneNode.frustumCulled = true;

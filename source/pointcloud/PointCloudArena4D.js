@@ -187,7 +187,7 @@ class PointCloudArena4D extends PointCloudTree
 	{
 		var node = new PointCloudArena4DNode();
 
-		var sceneNode = new THREE.Points(geometryNode.geometry, this.material);
+		var sceneNode = new THREE.PointCloud(geometryNode.geometry, this.material);
 		sceneNode.frustumCulled = true;
 		sceneNode.onBeforeRender = (_this, scene, camera, geometry, material, group) =>
 		{

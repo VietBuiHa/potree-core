@@ -6153,7 +6153,7 @@ class PointCloudOctree extends PointCloudTree
 	{
 		var node = new PointCloudOctreeNode();
 
-		var sceneNode = new THREE.Points(geometryNode.geometry, this.material);
+		var sceneNode = new THREE.PointCloud(geometryNode.geometry, this.material);
 		sceneNode.name = geometryNode.name;
 		sceneNode.position.copy(geometryNode.boundingBox.min);
 		sceneNode.frustumCulled = true;
@@ -7248,7 +7248,7 @@ class PointCloudArena4D extends PointCloudTree
 	{
 		var node = new PointCloudArena4DNode();
 
-		var sceneNode = new THREE.Points(geometryNode.geometry, this.material);
+		var sceneNode = new THREE.PointCloud(geometryNode.geometry, this.material);
 		sceneNode.frustumCulled = true;
 		sceneNode.onBeforeRender = (_this, scene, camera, geometry, material, group) =>
 		{
@@ -8491,6 +8491,15 @@ function loadPointCloud(path, name, callback)
 	}
 }
 
+function transformsEqual(a, b) {
+	const arr1 = a.elements, arr2 = b.elements;
+	for (let i = 0; i < 16; i++) {
+		if (arr1[i] !== arr2[i])
+			return false;
+	}
+	return true;
+}
+
 function updateVisibility(pointclouds, camera, renderer)
 {
 	var numVisiblePoints = 0;
@@ -8539,7 +8548,7 @@ function updateVisibility(pointclouds, camera, renderer)
 		else
 		{
 			var version = pointcloudTransformVersion.get(pointcloud);
-			if(!version.transform.equals(pointcloud.matrixWorld))
+			if(!transformsEqual(version.transform, pointcloud.matrixWorld))
 			{
 				version.number++;
 				version.transform.copy(pointcloud.matrixWorld);
