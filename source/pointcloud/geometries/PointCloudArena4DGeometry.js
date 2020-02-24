@@ -151,7 +151,8 @@ class PointCloudArena4DGeometryNode
 
 				var geometry = new THREE.BufferGeometry();
 				geometry.addAttribute("position", new THREE.BufferAttribute(position, 3));
-				geometry.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				//geometry.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				geometry.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(color), 4));
 				geometry.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
 				geometry.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 				{

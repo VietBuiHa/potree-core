@@ -24,6 +24,15 @@ function getBasePath()
 	return "";
 }
 
+// Three.js r71 doesn't support normalized buffer attributes, so we turn the uint8s into floats manually
+function denormalizeUint8Array(ubytes) {
+	const floats = new Float32Array(ubytes.length);
+	for (let i = 0; i < floats.length; i++) {
+		floats[i] = ubytes[i] / 255.0;
+	}
+	return floats;
+}
+
 var Global = 
 {
 	debug: {},
@@ -36,7 +45,8 @@ var Global =
 	measureTimings: false,
 	workerPool: new WorkerManager(),
 	lru: new LRU(),
-	pointcloudTransformVersion: undefined
+	pointcloudTransformVersion: undefined,
+	denormalizeUint8Array
 };
 
 export {Global};

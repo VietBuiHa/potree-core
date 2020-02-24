@@ -103,7 +103,8 @@ class GreyhoundBinaryLoader
 				}
 				else if(parseInt(property) === PointAttributeNames.COLOR_PACKED)
 				{
-					geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+					//geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+					geometry.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(new Uint8Array(buffer)), 4));
 				}
 				else if(parseInt(property) === PointAttributeNames.INTENSITY)
 				{

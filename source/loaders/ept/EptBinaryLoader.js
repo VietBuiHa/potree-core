@@ -59,7 +59,8 @@ class EptBinaryLoader
 			if(e.data.color)
 			{
 				var color = new Uint8Array(e.data.color);
-				g.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				//g.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				g.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(color), 4));
 			}
 			if(e.data.intensity)
 			{

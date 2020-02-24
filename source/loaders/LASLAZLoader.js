@@ -199,7 +199,8 @@ class LASLAZBatcher
 			var indices = new Uint8Array(e.data.indices);
 
 			geometry.addAttribute("position", new THREE.BufferAttribute(positions, 3));
-			geometry.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			//geometry.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			geometry.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(colors), 4));
 			geometry.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
 			geometry.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 			geometry.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));

@@ -303,6 +303,15 @@ function getBasePath()
 	return "";
 }
 
+// Three.js r71 doesn't support normalized buffer attributes, so we turn the uint8s into floats manually
+function denormalizeUint8Array(uints) {
+	const floats = new Float32Array(uints.length);
+	for (let i = 0; i < floats.length; i++) {
+		floats[i] = uints[i] / 255.0;
+	}
+	return floats;
+}
+
 var Global = 
 {
 	debug: {},
@@ -315,7 +324,8 @@ var Global =
 	measureTimings: false,
 	workerPool: new WorkerManager(),
 	lru: new LRU(),
-	pointcloudTransformVersion: undefined
+	pointcloudTransformVersion: undefined,
+	denormalizeUint8Array
 };
 
 var PointAttributeNames =
@@ -1421,7 +1431,8 @@ class GreyhoundBinaryLoader
 				}
 				else if(parseInt(property) === PointAttributeNames.COLOR_PACKED)
 				{
-					geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+					//geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+					geometry.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(new Uint8Array(buffer)), 4));
 				}
 				else if(parseInt(property) === PointAttributeNames.INTENSITY)
 				{
@@ -2039,7 +2050,8 @@ class BinaryLoader
 				}
 				else if(parseInt(property) === PointAttributeNames.COLOR_PACKED)
 				{
-					geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+					//geometry.addAttribute("color", new THREE.BufferAttribute(new Uint8Array(buffer), 4, true));
+					geometry.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(new Uint8Array(buffer)), 4));
 				}
 				else if(parseInt(property) === PointAttributeNames.INTENSITY)
 				{
@@ -2642,7 +2654,8 @@ class LASLAZBatcher
 			var indices = new Uint8Array(e.data.indices);
 
 			geometry.addAttribute("position", new THREE.BufferAttribute(positions, 3));
-			geometry.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			//geometry.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			geometry.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(colors), 4));
 			geometry.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
 			geometry.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 			geometry.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));
@@ -3200,7 +3213,8 @@ class EptBinaryLoader
 			if(e.data.color)
 			{
 				var color = new Uint8Array(e.data.color);
-				g.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				//g.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				g.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(color), 4));
 			}
 			if(e.data.intensity)
 			{
@@ -3395,7 +3409,8 @@ class EptLazBatcher
 			var indices = new Uint8Array(e.data.indices);
 
 			g.addAttribute("position", new THREE.BufferAttribute(positions, 3));
-			g.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			//g.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			g.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(colors), 4));
 			g.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
 			g.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 			g.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));
@@ -7889,7 +7904,8 @@ class PointCloudArena4DGeometryNode
 
 				var geometry = new THREE.BufferGeometry();
 				geometry.addAttribute("position", new THREE.BufferAttribute(position, 3));
-				geometry.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				//geometry.addAttribute("color", new THREE.BufferAttribute(color, 4, true));
+				geometry.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(color), 4));
 				geometry.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
 				geometry.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 				{

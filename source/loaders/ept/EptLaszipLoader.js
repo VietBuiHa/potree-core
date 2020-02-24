@@ -147,7 +147,8 @@ class EptLazBatcher
 			var indices = new Uint8Array(e.data.indices);
 
 			g.addAttribute("position", new THREE.BufferAttribute(positions, 3));
-			g.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			//g.addAttribute("color", new THREE.BufferAttribute(colors, 4, true));
+			g.addAttribute("color", new THREE.BufferAttribute(Global.denormalizeUint8Array(colors), 4));
 			g.addAttribute("intensity", new THREE.BufferAttribute(intensities, 1));
 			g.addAttribute("classification", new THREE.BufferAttribute(classifications, 1));
 			g.addAttribute("returnNumber", new THREE.BufferAttribute(returnNumbers, 1));
