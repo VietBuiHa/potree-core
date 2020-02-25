@@ -48,6 +48,7 @@ class EptBinaryLoader
 		worker.onmessage = function(e)
 		{
 			var g = new THREE.BufferGeometry();
+			g.isPoints = true;
 			var numPoints = e.data.numPoints;
 
 			var position = new Float32Array(e.data.position);

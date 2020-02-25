@@ -99,6 +99,7 @@ class BinaryLoader
 			var buffers = data.attributeBuffers;
 			var tightBoundingBox = new THREE.Box3(new THREE.Vector3().fromArray(data.tightBoundingBox.min), new THREE.Vector3().fromArray(data.tightBoundingBox.max));
 			var geometry = new THREE.BufferGeometry();
+			geometry.isPoints = true;
 
 			for(var property in buffers)
 			{

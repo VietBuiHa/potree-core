@@ -187,6 +187,7 @@ class LASLAZBatcher
 		worker.onmessage = function(e)
 		{
 			var geometry = new THREE.BufferGeometry();
+			geometry.isPoints = true;
 			var numPoints = data.pointsCount;
 
 			var positions = new Float32Array(e.data.position);

@@ -134,6 +134,7 @@ class EptLazBatcher
 		worker.onmessage = (e) =>
 		{
 			var g = new THREE.BufferGeometry();
+			g.isPoints = true;
 			var numPoints = las.pointsCount;
 
 			var positions = new Float32Array(e.data.position);

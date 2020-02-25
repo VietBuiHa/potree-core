@@ -92,6 +92,7 @@ class GreyhoundBinaryLoader
 			);
 
 			var geometry = new THREE.BufferGeometry();
+			geometry.isPoints = true;
 
 			for(var property in buffers)
 			{
