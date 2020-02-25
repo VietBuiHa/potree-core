@@ -1,5 +1,7 @@
 "use strict";
 
+import {CanvasTexture} from "./CanvasTexture.js";
+
 function paramThreeToGL(gl, p)
 {
 	var extension;
@@ -171,7 +173,7 @@ class WebGLTexture
 
 			gl.texImage2D(this.target, level, internalFormat, width, height, border, srcFormat, srcType, data);
 		}
-		else if(texture instanceof THREE.CanvasTexture)
+		else if(texture instanceof CanvasTexture)
 		{
 			data = texture.image;
 

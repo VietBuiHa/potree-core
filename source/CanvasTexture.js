@@ -14,4 +14,4 @@ CanvasTexture.prototype = Object.create( THREE.Texture.prototype );
 CanvasTexture.prototype.constructor = CanvasTexture;
 CanvasTexture.prototype.isCanvasTexture = true;
 
-THREE.CanvasTexture = CanvasTexture;
+export {CanvasTexture};

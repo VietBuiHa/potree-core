@@ -4,6 +4,7 @@ import {HelperUtils} from "../../utils/HelperUtils.js";
 import {Gradients} from "../../Gradients.js";
 import {Shaders} from "../../Shaders.js";
 import {TreeType, PointColorType, PointSizeType, PointShape, Classification} from "../../Potree.js";
+import {CanvasTexture} from "../../CanvasTexture.js";
 
 class PointCloudMaterial extends THREE.RawShaderMaterial
 {
@@ -1107,7 +1108,7 @@ class PointCloudMaterial extends THREE.RawShaderMaterial
 		context.fillStyle = ctxGradient;
 		context.fill();
 
-		var texture = new THREE.CanvasTexture(canvas);
+		var texture = new CanvasTexture(canvas);
 		texture.needsUpdate = true;
 		texture.minFilter = THREE.LinearFilter;
 
